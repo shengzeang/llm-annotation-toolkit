@@ -6,7 +6,7 @@ This repository contains an annotation toolkit with the help of LLMs. This toolk
 
 ### Draft architecture
 
-![](.\draft_architecture.png)
+<img src="https://github.com/shengzeang/llm-annotation-toolkit/blob/main/draft_architecture.png" style="zoom:50%;" />
 
 **Three main modules (under development)**:
 
