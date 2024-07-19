@@ -25,7 +25,7 @@ class AGE(ActiveLearning):
         self._basef = basef
         self._num_hops = num_hops
         self._num_classes = data.y.max().item()+1
-        self._linear = torch.nn.Linear(data.x.shape[1], self._num_classes).cuda()
+        self._linear = torch.nn.Linear(data.x.shape[1], self._num_classes)
         self._linear.reset_parameters()
 
         super(AGE, self).__init__(data, available_idx, budget)
@@ -42,7 +42,7 @@ class AGE(ActiveLearning):
         self._centrality = torch.tensor((centrality - centrality.min()) / (centrality.max() - centrality.min()))
 
         # feature propagation
-        self._prop_feat = feature_propagation(self._data.clone().cuda(), self._num_hops)
+        self._prop_feat = feature_propagation(self._data.clone(), self._num_hops)
 
     def _score_calculation(self, cur_cnt, train_idx):
         gamma = np.random.beta(1, 1.005-self._basef**cur_cnt)
@@ -56,7 +56,7 @@ class AGE(ActiveLearning):
             for _ in range(50):
                 optimizer.zero_grad()
                 out = self._linear(self._prop_feat)
-                loss = torch.nn.CrossEntropyLoss()(out[train_idx], self._data.y[train_idx].cuda())
+                loss = torch.nn.CrossEntropyLoss()(out[train_idx], self._data.y[train_idx])
                 loss.backward()
                 optimizer.step()
             uncertainty = torch.nn.functional.softmax(out[self._available_idx], dim=1).max(dim=1).values.cpu().detach().numpy()
