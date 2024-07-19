@@ -10,9 +10,9 @@ This repository contains an annotation toolkit with the help of LLMs. This toolk
 
 **Three main modules (under development)**:
 
-1. *Difficulty Score Calculation Module* (Optional): apply data type/domain specific algorithms to assign difficulty scores to samples in the dataset, which reflect annotation difficulty; these sample-wise difficulty scores are later used in *Prompt Template Selection Module*.
-2. *Active Learning Module*: contains various data type/domain specific active learning algorithms that select valuable data samples and send them to *Prompt Template Selection Module* for annotation.
-3. *Prompt Template Selection Module*: contains various prompt templates and each of these templates is associated with an approximate performance score (recommend value) that is produced from evaluation on many pre-existed datasets; this module detects whether these recommended values is proper for the input dataset and adjusts these performance scores for prompt templates.
+1. **Difficulty Score Calculation Module** (Optional): apply data type/domain specific algorithms to assign difficulty scores to samples in the dataset, which reflect annotation difficulty; these sample-wise difficulty scores are later used in **Prompt Template Selection Module**.
+2. **Active Learning Module**: contains various data type/domain specific active learning algorithms that select valuable data samples and send them to **Prompt Template Selection Module** for annotation.
+3. **Prompt Template Selection Module**: contains various prompt templates and each of these templates is associated with an approximate performance score (recommend value) that is produced from evaluation on many pre-existed datasets; this module detects whether these recommended values is proper for the input dataset and adjusts these performance scores for prompt templates.
 
 
 
