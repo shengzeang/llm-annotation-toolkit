@@ -2,7 +2,6 @@ import torch
 
 from .modules.base_modules import PromptSelection
 from .modules.al_modules import RANDOM, AGE
-from .utils import query_oracle
 
 
 def annotate_dataset_pyg(data, budget, token2money, active_learning, verbose=False):
@@ -36,7 +35,8 @@ def annotate_dataset_pyg(data, budget, token2money, active_learning, verbose=Fal
 
         if verbose:
             print(f'Annotating {num_iter}th batch...')
-        y[batch_selected_node_list] = query_oracle(data, batch_selected_node_list, prompt_selection)
+        # adaptation or not
+        y[batch_selected_node_list] = prompt_selection.get_annotations(data, batch_selected_node_list)
 
     data.train_mask = torch.zeros(data.num_nodes, dtype=torch.bool)
     data.train_mask[train_idx] = True
