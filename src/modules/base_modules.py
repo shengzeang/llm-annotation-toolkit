@@ -5,7 +5,7 @@ from gurobipy import GRB
 from lxml.includes.xpath import xmlXPathEvalExpression
 
 from annotation_example import num_classes
-from ..utils import count_tokens, calculate_ranking_diff, query_oracle, get_embeddings_from_llm
+from ..utils import count_tokens, calculate_ranking_diff, query_oracle, get_embeddings_from_llm, query_oracle_for_psample
 
 
 class ActiveLearning:
@@ -65,8 +65,7 @@ class PromptSelection:
                 len(self._prompts)**2 - len(self._prompts) % 2) // 4
             # detect if distribution shift exists
             # query the oracle to generate pseudo samples according to class descriptions
-            # xxx
-            self._global_noise_matrix = None
+            self._global_noise_matrix = query_oracle_for_psample(self._data)
             self._local_noise_matrix = []
             self._embedding_cache = None
             self._class_assigns_cache = None
