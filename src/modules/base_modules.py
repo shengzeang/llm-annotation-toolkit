@@ -2,7 +2,6 @@ import json
 import torch
 import gurobipy as gp
 from gurobipy import GRB
-from lxml.includes.xpath import xmlXPathEvalExpression
 
 from annotation_example import num_classes
 from ..utils import count_tokens, calculate_ranking_diff, query_oracle, get_embeddings_from_llm, query_oracle_for_psample
@@ -25,11 +24,14 @@ class ActiveLearning:
         return NotImplementedError
 
     def select_node(self, cur_cnt, train_idx):
+        # choose nodes with highest scores within available index
         self._score_calculation(cur_cnt, train_idx)
         return self._scores.argmax().item()
 
     def update(self, selected_node):
+        # update available index to exclude already selected nodes
         self._available_idx = self._available_idx[self._available_idx != selected_node]
+        # set scores of selected nodes to -1 to avoid re-selection
         self._scores[selected_node] = -1
 
 
